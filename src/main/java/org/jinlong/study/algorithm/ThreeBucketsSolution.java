@@ -5,6 +5,9 @@ import java.util.List;
 
 /**
  * Created by nick on 26/12/2016.
+ * 有三个容积分别是3升，5升，8升的水桶，其中容积为8升的水桶中装满了水，其余俩只桶是空的，
+ * 三只桶都没有体积刻度，现在需要将8升桶中的水分成俩份，都为4升，规定只可以使用其余俩只
+ * 完成操作，不能借助其他容器，请列出所有的操作方法？
  */
 public class ThreeBucketsSolution {
     static int BUCKET_COUNTS = 3;
