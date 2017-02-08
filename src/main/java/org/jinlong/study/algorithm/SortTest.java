@@ -12,7 +12,10 @@ import java.util.concurrent.TimeUnit;
 public class SortTest {
 
     public static void main(String[] args) throws Exception {
-        printArray(executeSort("selectionSort", generateRandomArray(1000, 10000)));
+        int[] data1 = generateNearlySeqArray(100000, 100000, 10);
+        int[] data2 = copyArray(data1);
+        executeSort("selectionSort", data1);
+        executeSort("insertionSort", data2);
     }
 
     /**
@@ -28,8 +31,6 @@ public class SortTest {
         long startTime = new Date().getTime();
         int[] result = (int[]) sortMethod.invoke(sortClass, data);
         long endTime = new Date().getTime();
-        System.out.println(startTime);
-        System.out.println(endTime);
         double duration = (endTime - startTime) / 1000d;
         System.out.println(sortMethodName + ": " + duration + " S");
         return result;
@@ -49,6 +50,20 @@ public class SortTest {
         }
         return array;
     }
+    public static int[] generateNearlySeqArray(int length, int range, int swapTimes) {
+        int[] array = new int[length];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = i;
+        }
+        Random random = new Random(47);
+        for (int i = 0; i < swapTimes; i++) {
+            int swapIndex = random.nextInt(range);
+            int temp = array[swapIndex];
+            array[swapIndex] = array[range - swapIndex];
+            array[range - swapIndex] = temp;
+        }
+        return array;
+    }
 
     /**
      * 打印数组中的每一个变量
@@ -61,5 +76,13 @@ public class SortTest {
             builder.append(" ");
         }
         System.out.println(builder.toString());
+    }
+
+    public static int[] copyArray(int[] arr) {
+        int[] result = new int[arr.length];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = arr[i];
+        }
+        return result;
     }
 }
