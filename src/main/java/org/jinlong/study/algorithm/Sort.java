@@ -45,4 +45,27 @@ public class Sort {
         }
         return arr;
     }
+
+    /**
+     * 冒泡排序算法实现，假如数组的长度为N,每次都从数组的第一位开始，然后和后一位比较，如果当前位置的数字大于后一位的数字，
+     * 则互换位置，如此直到数组的最后一位,遍历直到此次循环中没有可以交换的数字。算法复杂度为N平方。
+     * @param arr
+     * @return
+     */
+    public static int[] bubbleSort(int[] arr) {
+        boolean swap = false;
+        do {
+            swap = false;
+            //此处可以优化为：i+1 < 数组长度-while已经循环的次数
+            for (int i = 0; i + 1 < arr.length - 1; i++) {
+                if (arr[i] > arr[i + 1]) {
+                    int temp = arr[i + 1];
+                    arr[i + 1] = arr[i];
+                    arr[i] = temp;
+                    swap = true;
+                }
+            }
+        } while (swap);
+        return arr;
+    }
 }

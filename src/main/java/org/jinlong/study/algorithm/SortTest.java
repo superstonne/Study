@@ -12,10 +12,11 @@ import java.util.concurrent.TimeUnit;
 public class SortTest {
 
     public static void main(String[] args) throws Exception {
-        int[] data1 = generateNearlySeqArray(100000, 100000, 10);
+        int[] data1 = generateNearlySeqArray(100, 100, 5);
         int[] data2 = copyArray(data1);
-        executeSort("selectionSort", data1);
-        executeSort("insertionSort", data2);
+//        executeSort("selectionSort", data1);
+//        executeSort("insertionSort", data2);
+        printArray(executeSort("bubbleSort", data2));
     }
 
     /**
@@ -57,7 +58,7 @@ public class SortTest {
         }
         Random random = new Random(47);
         for (int i = 0; i < swapTimes; i++) {
-            int swapIndex = random.nextInt(range);
+            int swapIndex = random.nextInt(range - 1);
             int temp = array[swapIndex];
             array[swapIndex] = array[range - swapIndex];
             array[range - swapIndex] = temp;
