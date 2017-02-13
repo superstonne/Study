@@ -68,4 +68,31 @@ public class Sort {
         } while (swap);
         return arr;
     }
+
+    /**
+     * 希尔排序算法实现, 开始将数组分为N/3 份，然后每份进行插入排序；接着将数组分为N／9份，每份进行插入排序；如此直到份数为1，完成最后
+     * 一次全数组的插入排序。注意每份中的数组元素不是连续索引的元素，而是间隔获取，例如数组有十个元素，分为3份，则第一份为a[0], a[3],
+     * a[6]; 第二份为a[1], a[4], a[7]; 第三份为a[2], a[5], a[8]; 最后一个数字为一组。该算法为不稳定算法，算法复杂度为N的3／2次方。
+     * @param arr
+     * @return
+     */
+    public static int[] shellSort(int[] arr) {
+        int h = 1;
+        //h should be 1, 4, 13...
+        while (h < arr.length / 3) {
+            h = h * 3 + 1;
+        }
+        while (h >= 1) {
+            for (int i = h; i < arr.length; i++) {
+                int temp = arr[i];
+                int j ;
+                for (j = i; j >= h && temp < arr[j - h]; j -= h) {
+                    arr[j] = arr[j - h];
+                }
+                arr[j] = temp;
+            }
+            h = h / 3;
+        }
+        return arr;
+    }
 }
