@@ -95,4 +95,47 @@ public class Sort {
         }
         return arr;
     }
+
+    /**
+     * 归并排序算法实现，将数组递归二分，然后归并。若数组长度为N，则数组算法复杂度为N*LOG N。
+     * @param arr
+     * @return
+     */
+    public static int[] mergeSort(int[] arr) {
+        _mergeSort(arr, 0, arr.length - 1);
+        return arr;
+    }
+    private static void _mergeSort(int[] arr, int left, int right) {
+        if (left >= right) {
+            return;
+        }
+        int middle = (right - left) / 2 + left;
+        _mergeSort(arr, left, middle);
+        _mergeSort(arr, middle + 1, right);
+        _merge(arr, left, middle, right);
+
+    }
+    private static void _merge(int[] arr, int left, int middle, int right) {
+
+        int[] temp = new int[right - left + 1];
+        for (int i = left; i <= right; i++) {
+            temp[i - left] = arr[i];
+        }
+        for (int i = left, j = middle + 1, k = left; k <= right; k++) {
+            if (i > middle) {
+                arr[k] = temp[j - left];
+                j++;
+            } else if (j > right) {
+                arr[k] = temp[i - left];
+                i++;
+            } else if (temp[i - left] > temp[j - left]) {
+                arr[k] = temp[j - left];
+                j++;
+            } else {
+                arr[k] = temp[i - left];
+                i++;
+            }
+        }
+    }
+
 }
