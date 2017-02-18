@@ -12,11 +12,22 @@ import java.util.concurrent.TimeUnit;
 public class SortTest {
 
     public static void main(String[] args) throws Exception {
-        int[] data1 = generateNearlySeqArray(10, 10, 5);
-        int[] data2 = copyArray(data1);
+        int[] data = generateRandomArray(200000, 100000);
+        int[] data1 = copyArray(data);
+        int[] data2 = copyArray(data);
+        int[] data3 = copyArray(data);
+        int[] data4 = copyArray(data);
 //        executeSort("selectionSort", data1);
 //        executeSort("insertionSort", data2);
-        printArray(executeSort("shellSort", data2));
+//        printArray(executeSort("shellSort", data2));
+//        printArray(executeSort("mergeSort", data));
+//        executeSort("selectionSort", data);
+//        executeSort("insertionSort", data1);
+//        executeSort("bubbleSort", data2);
+//        executeSort("shellSort", data3);
+//        executeSort("mergeSort", data4);
+        executeSort("mergeSort", data3);
+        executeSort("mergeSortBottomUp", data4);
     }
 
     /**

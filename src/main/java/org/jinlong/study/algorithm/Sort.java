@@ -98,6 +98,9 @@ public class Sort {
 
     /**
      * 归并排序算法实现，将数组递归二分，然后归并。若数组长度为N，则数组算法复杂度为N*LOG N。
+     * 算法优化思路：
+     * 1. 若数组的长度小于15，则采用插入排序。
+     * 2. 若arr[middle] <= arr[middle + 1] 则不进行归并，该优化对于近乎有序的数组非常有效，但是对于随机数据会造成性能损耗。
      * @param arr
      * @return
      */
@@ -138,4 +141,22 @@ public class Sort {
         }
     }
 
+    /**
+     * 自下而上的归并排序方法实现，算法性能强于自上而下,因为少去了俩步merge sort，直接进行merge。
+     * @param arr
+     * @return
+     */
+    public static int[] mergeSortBottomUp(int[] arr) {
+        int i = 1;
+        while (i <= arr.length) {
+            for (int j = 0; j + i < arr.length; j += 2 * i) {
+                if (arr[j + i - 1] <= arr[Math.min(j + 2 * i - 1, arr.length - 1)]) {
+                    continue;
+                }
+                _merge(arr, j, j + i - 1, Math.min(j + 2 * i - 1, arr.length - 1));
+            }
+            i = 2 * i;
+        }
+        return arr;
+    }
 }
