@@ -4,6 +4,11 @@ package org.jinlong.study.algorithm;
  * Created by nick on 07/02/2017.
  */
 public class Sort {
+    private static void swapArrayByIndex(int[] arr, int x, int y) {
+        int temp = arr[x];
+        arr[x] = arr[y];
+        arr[y] = temp;
+    }
     /**
      * 选择排序算法实现，从数组的第一位开始，每次选取一个数字，然后遍历数组，拿这个数字和数组中的每一个数字做比较，获取最小的数字，互换
      * 位置。则数组的长度N，算法复杂度为N平方。
@@ -199,4 +204,87 @@ public class Sort {
         arr[left] = temp;
         return j;
     }
+
+    /**
+     * 快速排序算法，从头尾开始遍历，小于标兵放左边，大于等于标兵放右边。
+     * @param arr
+     * @return
+     */
+    public static int[] quickSortTwoWays(int[] arr) {
+        _quickSortTwoWays(arr, 0, arr.length - 1);
+        return arr;
+    }
+    private static void _quickSortTwoWays(int[] arr, int left, int right) {
+        if (left >= right) {
+            return;
+        }
+        int middle = _partitionTwoWays(arr, left, right);
+        _quickSortTwoWays(arr, left, middle - 1);
+        _quickSortTwoWays(arr, middle + 1, right);
+    }
+    private static int _partitionTwoWays(int[] arr, int left, int right) {
+
+        int flagIndex = left;
+        int flag = arr[left];
+        for (int i = left + 1, j = right; i <= j; ) {
+            if (arr[i] < flag) {
+                i++;
+            } else if (arr[j] >= flag) {
+                j--;
+            } else {
+                swapArrayByIndex(arr, i, j);
+                i++;
+                j--;
+            }
+            flagIndex = j;
+        }
+        swapArrayByIndex(arr, left, flagIndex);
+        return flagIndex;
+    }
+
+    /**
+     * 快速排序三路并发实现，小于标兵放左边，大于标兵放右边，等于标兵位置不变。
+     * @param arr
+     * @return
+     */
+    public static int[] quickSortThreeWays(int[] arr) {
+        _quickSortThreeWays(arr, 0, arr.length - 1);
+        return arr;
+    }
+    private static void _quickSortThreeWays(int[] arr, int left, int right) {
+        if (left >= right) {
+            return;
+        }
+        int[] middle = _partitionThreeWays(arr, left, right);
+        _quickSortThreeWays(arr, left, middle[0]);
+        _quickSortThreeWays(arr, middle[1], right);
+    }
+    private static int[] _partitionThreeWays(int[] arr, int left, int right) {
+        int[] middle = new int[2];
+        int lt = left;     // arr[l+1...lt] < v
+        int gt = right + 1; // arr[gt...r] > v
+        int i = left + 1;    // arr[lt+1...i) == v
+        while( i < gt ){
+            if( arr[i] < arr[left] ){
+                if (i != lt + 1) {
+                    swapArrayByIndex(arr, i, lt + 1);
+                }
+                i++;
+                lt++;
+            }
+            else if( arr[i] > arr[left] ){
+                swapArrayByIndex(arr, i, gt - 1);
+                gt--;
+            }
+            else{ // arr[i] == v
+                i++;
+            }
+        }
+
+        swapArrayByIndex(arr, left , lt);
+        middle[0] = lt - 1;
+        middle[1] = gt;
+        return middle;
+    }
+
 }

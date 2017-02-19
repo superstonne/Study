@@ -13,7 +13,7 @@ public class SortTest {
 
     public static void main(String[] args) throws Exception {
         int[] data = generateRandomArray(20, 20);
-        data = generateNearlySeqArray(10000, 10000, 10);
+//        data = generateNearlySeqArray(10000, 10000, 10);
         int[] data1 = copyArray(data);
         int[] data2 = copyArray(data);
         int[] data3 = copyArray(data);
@@ -28,8 +28,12 @@ public class SortTest {
 //        executeSort("shellSort", data3);
 //        executeSort("mergeSort", data4);
 //        executeSort("mergeSort", data3);
-        executeSort("mergeSortBottomUp", data4);
-        executeSort("quickSort", data3);
+//        executeSort("mergeSortBottomUp", data4);
+//        executeSort("quickSort", data3);
+//        executeSort("quickSortTwoWays", data1);
+//        executeSort("mergeSortBottomUp", data2);
+        printArray(executeSort("quickSortThreeWays", data2));
+
     }
 
     /**
