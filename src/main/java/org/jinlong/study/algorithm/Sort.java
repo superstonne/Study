@@ -159,4 +159,44 @@ public class Sort {
         }
         return arr;
     }
+
+    /**
+     * 快速排序算法实现，从数组中找到一个标兵，遍历数组，将大于标兵的放在数组右侧，小于标兵的放在数组左侧，如此循环
+     * @param arr
+     * @return
+     */
+    public static int[] quickSort(int[] arr) {
+
+        _quickSort(arr, 0, arr.length - 1);
+        return arr;
+    }
+    private static void _quickSort(int[] arr, int left, int right) {
+
+        if (left >= right) {
+            return;
+        }
+        int flagIndex = _partition(arr, left, right);
+        _quickSort(arr, left, flagIndex);
+        _quickSort(arr, flagIndex + 1, right);
+    }
+    private static int _partition(int[] arr, int left, int right) {
+        int flag = arr[left];
+        int j = left;
+        int temp = 0;
+        for (int i = left + 1; i <= right; i++) {
+
+            if (arr[i] < flag) {
+                j++;
+                if (j != i) {
+                    temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+        temp = arr[j];
+        arr[j] = arr[left];
+        arr[left] = temp;
+        return j;
+    }
 }
