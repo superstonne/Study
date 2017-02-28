@@ -287,4 +287,19 @@ public class Sort {
         return middle;
     }
 
+    /**
+     * 堆排序算法实现，使用最大二叉堆实现堆排序，二叉堆定义看这里：http://baike.baidu.com/item/%E4%BA%8C%E5%8F%89%E5%A0%86?fr=aladdin
+     * @param arr
+     * @return
+     */
+    public static int[] heapSort(int[] arr) {
+        MaxHeap heap = new MaxHeap(arr.length);
+        for (int i = 0; i < arr.length; i++) {
+            heap.insertHeap(arr[i]);
+        }
+        for (int i = arr.length - 1; i >= 0; i--) {
+            arr[i] = heap.offer();
+        }
+        return arr;
+    }
 }

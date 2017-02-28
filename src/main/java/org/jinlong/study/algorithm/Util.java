@@ -19,4 +19,10 @@ public class Util {
             System.out.println(t);
         }
     }
+
+    public static void swapArrayByIndex(int[] arr, int x, int y) {
+        int temp = arr[x];
+        arr[x] = arr[y];
+        arr[y] = temp;
+    }
 }
