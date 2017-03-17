@@ -1,12 +1,13 @@
 package org.jinlong.study.algorithm;
 
-import java.util.Comparator;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * Created by nick on 15/03/2017.
  */
 public class BinarySearchTree<K extends Comparable, V> {
+    private Stack<Node> stack = new Stack<Node>();
+    private int count = 0;
     private class Node {
         K key;
         V value;
@@ -33,19 +34,24 @@ public class BinarySearchTree<K extends Comparable, V> {
         Node target = root;
         while (target != null) {
             if (target.key.compareTo(key) < 0) {
-                target = target.right;
+                if (target.right == null) {
+                    target.right = new Node(key, value);
+                    break;
+                } else {
+                    target = target.right;
+                }
             } else if (target.key.compareTo(key) > 0) {
-                target = target.left;
+                if (target.left == null) {
+                    target.left = new Node(key, value);
+                    break;
+                } else {
+                    target = target.left;
+                }
             } else {
+                target = new Node(key, value);
                 break;
             }
         }
-        if (target == null) {
-            target = new Node(key, value);
-        } else {
-            target.value = value;
-        }
-
     }
 
     public boolean contains(K key) {
@@ -66,15 +72,65 @@ public class BinarySearchTree<K extends Comparable, V> {
         return false;
     }
 
-    public static void main(String[] args) {
-        BinarySearchTree<String, Integer> binarySearchTree = new BinarySearchTree<String, Integer>();
-        binarySearchTree.insert("My", 1);
-        binarySearchTree.insert("Name", 1);
-        binarySearchTree.insert("Is", 1);
-        binarySearchTree.insert("Nick", 1);
-        binarySearchTree.insert("!", 1);
-        System.out.println(binarySearchTree.contains("My"));
-        System.out.println(binarySearchTree.contains("my"));
+    public List<K> preOrder(Node node, List<K> result) {
+        if (node == null) {
+            return result;
+        }
+        result.add(node.key);
+        result = preOrder(node.left, result);
+        result = preOrder(node.right, result);
+        return result;
+    }
 
+    public List<K> inOrder(Node node, List<K> result) {
+        if (node == null) {
+            return result;
+        }
+        result = inOrder(node.left, result);
+        result.add(node.key);
+        result = inOrder(node.right, result);
+        return result;
+    }
+
+    public List<K> postOrder(Node node, List<K> result) {
+        if (node == null) {
+            return result;
+        }
+        result = postOrder(node.left, result);
+        result = postOrder(node.right, result);
+        result.add(node.key);
+        return result;
+    }
+
+    public List<K> breathFirstSearch(Node node, List<K> result) {
+        if (node == null) {
+            return result;
+        }
+        stack.push(node);
+        while (!stack.empty()) {
+            Node temp = stack.pop();
+            result.add(temp.key);
+            stack.push(temp.left);
+            stack.push(temp.right);
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        BinarySearchTree<Integer, Integer> binarySearchTree = new BinarySearchTree<Integer, Integer>();
+        int[] data = Util.generateRandomArray(10, 100);
+        for (int num : data) {
+            binarySearchTree.insert(num, 0);
+            System.out.println("Inserted num:" + num);
+        }
+        List<Integer> result = new ArrayList<Integer>();
+        result = binarySearchTree.preOrder(binarySearchTree.root, result);
+        System.out.println(result);
+        result.clear();
+        result = binarySearchTree.inOrder(binarySearchTree.root, result);
+        System.out.println(result);
+        result.clear();
+        result = binarySearchTree.postOrder(binarySearchTree.root, result);
+        System.out.println(result);
     }
 }

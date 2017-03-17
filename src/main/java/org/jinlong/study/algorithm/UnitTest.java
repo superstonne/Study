@@ -13,6 +13,7 @@ public class UnitTest {
 
     public static void main(String[] args) throws Exception {
         int[] data = Util.generateOrderedArray(200000, 200000);
+        int[] randomArray = Util.generateRandomArray(10, 100);
 //        data = generateNearlySeqArray(10000, 10000, 10);
         int[] data1 = Util.copyArray(data);
         int[] data2 = Util.copyArray(data);
