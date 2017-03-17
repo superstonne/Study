@@ -6,7 +6,6 @@ import java.util.*;
  * Created by nick on 15/03/2017.
  */
 public class BinarySearchTree<K extends Comparable, V> {
-    private Stack<Node> stack = new Stack<Node>();
     private int count = 0;
     private class Node {
         K key;
@@ -106,9 +105,13 @@ public class BinarySearchTree<K extends Comparable, V> {
         if (node == null) {
             return result;
         }
+        Stack<Node> stack = new Stack<Node>();
         stack.push(node);
         while (!stack.empty()) {
             Node temp = stack.pop();
+            if (temp == null) {
+                continue;
+            }
             result.add(temp.key);
             stack.push(temp.left);
             stack.push(temp.right);
@@ -131,6 +134,9 @@ public class BinarySearchTree<K extends Comparable, V> {
         System.out.println(result);
         result.clear();
         result = binarySearchTree.postOrder(binarySearchTree.root, result);
+        System.out.println(result);
+        result.clear();
+        result = binarySearchTree.breathFirstSearch(binarySearchTree.root, result);
         System.out.println(result);
     }
 }
