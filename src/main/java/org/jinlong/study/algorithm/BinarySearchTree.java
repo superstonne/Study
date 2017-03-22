@@ -28,6 +28,7 @@ public class BinarySearchTree<K extends Comparable, V> {
     public void insert(K key, V value) {
         if (root == null) {
             root = new Node(key, value);
+            count++;
             return;
         }
         Node target = root;
@@ -35,6 +36,7 @@ public class BinarySearchTree<K extends Comparable, V> {
             if (target.key.compareTo(key) < 0) {
                 if (target.right == null) {
                     target.right = new Node(key, value);
+                    count++;
                     break;
                 } else {
                     target = target.right;
@@ -42,12 +44,14 @@ public class BinarySearchTree<K extends Comparable, V> {
             } else if (target.key.compareTo(key) > 0) {
                 if (target.left == null) {
                     target.left = new Node(key, value);
+                    count++;
                     break;
                 } else {
                     target = target.left;
                 }
             } else {
                 target = new Node(key, value);
+                count++;
                 break;
             }
         }
@@ -119,24 +123,71 @@ public class BinarySearchTree<K extends Comparable, V> {
         return result;
     }
 
+    public void removeMaxKey() {
+        if (root == null) {
+            return;
+        }
+        root = removeMaxNode(root);
+    }
+    private Node removeMaxNode(Node node) {
+        if (node.right == null) {
+            Node leftNode = node.left;
+            node = null;
+            return leftNode;
+        }
+        node.right = removeMaxNode(node.right);
+        return node;
+    }
+
+    public void removeMinimumKey() {
+        if (root == null) {
+            return;
+        }
+        root = removeMinNode(root);
+    }
+    private Node removeMinNode(Node node) {
+        if (node.left == null) {
+            Node rightNode = node.right;
+            node = null;
+            return rightNode;
+        }
+        node.left = removeMinNode(node.left);
+        return node;
+    }
+
+    public int getCount() {
+        return count;
+    }
     public static void main(String[] args) {
         BinarySearchTree<Integer, Integer> binarySearchTree = new BinarySearchTree<Integer, Integer>();
-        int[] data = Util.generateRandomArray(10, 100);
+        int[] data = Util.generateRandomArray(20, 100);
         for (int num : data) {
             binarySearchTree.insert(num, 0);
             System.out.println("Inserted num:" + num);
         }
         List<Integer> result = new ArrayList<Integer>();
-        result = binarySearchTree.preOrder(binarySearchTree.root, result);
-        System.out.println(result);
-        result.clear();
+//        result = binarySearchTree.preOrder(binarySearchTree.root, result);
+//        System.out.println(result);
+//        result.clear();
         result = binarySearchTree.inOrder(binarySearchTree.root, result);
         System.out.println(result);
         result.clear();
-        result = binarySearchTree.postOrder(binarySearchTree.root, result);
-        System.out.println(result);
-        result.clear();
-        result = binarySearchTree.breathFirstSearch(binarySearchTree.root, result);
-        System.out.println(result);
+//        result = binarySearchTree.postOrder(binarySearchTree.root, result);
+//        System.out.println(result);
+//        result.clear();
+//        result = binarySearchTree.breathFirstSearch(binarySearchTree.root, result);
+//        System.out.println(result);
+        for (int i = 0; i < binarySearchTree.getCount(); i++) {
+            binarySearchTree.removeMaxKey();
+            result = binarySearchTree.inOrder(binarySearchTree.root, result);
+            System.out.println(result);
+            result.clear();
+        }
+//        for (int i = 0; i < binarySearchTree.getCount(); i++) {
+//            binarySearchTree.removeMinimumKey();
+//            result = binarySearchTree.inOrder(binarySearchTree.root, result);
+//            System.out.println(result);
+//            result.clear();
+//        }
     }
 }
