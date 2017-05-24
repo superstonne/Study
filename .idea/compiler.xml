@@ -25,8 +25,8 @@
         <module name="Study" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="Study" target="1.5" />
+    <bytecodeTargetLevel target="1.8">
+      <module name="Study" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
