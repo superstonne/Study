@@ -50,13 +50,13 @@ public class NavigableSetStudy {
         System.out.println(set.lower(3));
         System.out.println(reverse.lower(2));
 
-        //移除并且返回第一个元素，该操作似乎的现象似乎original和descending set 是同一个set
+        //移除并且返回第一个元素，该操作会互相影响，因为descending set 基于original set
         System.out.println(set.pollFirst());
         System.out.println(set);
         System.out.println(reverse.pollFirst());
         System.out.println(reverse);
 
-        //移除并且返回最后一个元素，该操作似乎的现象似乎original和descending set 是同一个set
+        //移除并且返回最后一个元素，该操作会互相影响，因为descending set 基于original set
         System.out.println(set.pollLast());
         System.out.println(set);
         System.out.println(reverse.pollLast());
