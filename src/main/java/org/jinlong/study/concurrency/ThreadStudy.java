@@ -68,6 +68,14 @@ import java.util.concurrent.TimeUnit;
  *    2。 线程永久的被阻塞，因为其他线程总是可以在它之前拿到锁；
  *    3。 线程永久的被阻塞，因为其他线程总是在它之前被唤醒；
  *
+ *   //Lock的正确使用方式
+ *   lock.lock();
+     try{
+     //do critical section code, which may throw exception
+     } finally {
+     lock.unlock();
+ }
+ *
  */
 public class ThreadStudy {
 
