@@ -40,6 +40,32 @@ import java.util.concurrent.TimeUnit;
  *   同时，当一个线程要读取Volatile变量时候，不仅仅从主存读取Volatile变量，要同时读取和Volatile一起被写入主存的
  *   其他变量。
  *
+ *   Synchronized 关键字的作用：
+ *    1。 确保线程互斥的访问Synchronized修饰代码块的代码；
+ *    2。 保证共享变量的修改能够及时可见；
+ *    3。 阻止JVM对指令进行重排序优化；
+ *   Synchronized 的实现原理：
+ *   1。修饰代码块
+ *      当Synchronized修饰代码块的时候，JVM会给对应代码块的字节码开头和结尾加入：monitorenter， monitorexit俩条指令；
+ *
+ *      monitorenter指令的作用：
+ *          每个对象都关联着一个monitor，当且仅当monitor拥有ower的时候，monitor会被上锁。当一个线程执行monitorenter命令尝试获得monitor
+ *      的所有权的时候，遵循以下规则：
+ *          。如果当前的进入数量是0，当前线程会进入monitor并且设置进入数量为1，之后该线程成为了这个monitor的所有者。
+ *          。如果该线程已经拥有了这个monitor，当再次进入的时候，会将进入数量加1。
+ *          。如果已经有其他线程拥有了这个monitor，那么当前线程将进入阻塞状态。直到monitor的进入数量变为0的时候，当前线程会再次尝试
+ *            进入monitor。
+ *      monitorexit指令的作用：
+ *          执行该指令的线程必须是这个monitor的拥有者。
+ *          执行该指令后，这个monitor的entry count 进入数量会减少1。如果entry count为0了，那么当前线程不再是这个monitor的主人。其他
+ *          被阻塞的线程将被允许再次尝试进入monitor。
+ *      由此可知Synchronized 底层是通过monitor的entry count来控制线程的顺序执行代码块的保护的代码。
+ *
+ *   2。修饰方法
+ *      当Synchronized修饰方法的时候， JVM会给给常量池中多增加一个标志ACC_SYNCHRONIZED。当线程调用方法时候会检查方法的
+ *      ACC_SYNCHRONIZED标志，如果方法设置了这个标志，那么线程就要去获得monitor的锁，只有获得成功，才能执行方法，否则线程
+ *      将会被阻塞。
+ *
  *
  *   sharedObject.nonVolatile1 = 123;
      sharedObject.nonVolatile2 = 456;
