@@ -1,5 +1,9 @@
 package org.jinlong.study.io;
 
+import com.sun.tools.doclets.internal.toolkit.util.DocFinder;
+
+import java.io.*;
+
 /**
  * Created by nick on 01/06/2017.
  *
@@ -61,4 +65,46 @@ package org.jinlong.study.io;
  *
  */
 public class JavaIOPractice {
+
+    public static void main(String[] args) throws Exception {
+        InputStream inputStream = new FileInputStream("test.txt");
+        int data = inputStream.read();
+        while (data != -1) {
+            System.out.print((char) data);
+            data = inputStream.read();
+        }
+
+        inputStream = new FileInputStream("test.txt");
+        byte[] buffer = new byte[1024];
+        data = inputStream.read(buffer);
+        while (data != -1) {
+            for (int i = 0; i < data; i++) {
+                System.out.print((char) buffer[i]);
+            }
+            data = inputStream.read(buffer);
+        }
+        inputStream.close();
+
+        OutputStream outputStream = new FileOutputStream("test.txt", true);
+        outputStream.write("Append this line to the file\n".getBytes());
+        buffer = new byte[1024];
+        for (byte b : buffer) {
+            outputStream.write(b);
+        }
+        outputStream.close();
+
+        System.out.println();
+        System.out.println("RandomAccessFile Start.");
+        RandomAccessFile file = new RandomAccessFile("test.txt", "rw");
+        System.out.println(file.getFilePointer());
+        file.seek(200);
+        System.out.println(file.getFilePointer());
+        System.out.println((char) file.read());
+        file.seek(0);
+        System.out.println((char) file.read());
+        file.write("Insert string here!".getBytes());
+        file.close();
+
+    }
+
 }
