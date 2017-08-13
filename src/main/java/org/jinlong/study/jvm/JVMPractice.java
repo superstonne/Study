@@ -1,11 +1,8 @@
 package org.jinlong.study.jvm;
 
-<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.Map;
 
-=======
->>>>>>> origin/master
 /**
  * Created by nick on 07/06/2017.
  *
@@ -71,8 +68,4 @@ public class JVMPractice {
             objects.put(i, new JVMPractice(i));
         }
     }
-=======
- */
-public class JVMPractice {
->>>>>>> origin/master
 }
