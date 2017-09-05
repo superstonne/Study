@@ -2,17 +2,11 @@ package org.jinlong.study.jvm;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.HashMap;
-import java.util.Map;
 /**
  * Created by nick on 07/06/2017.
  *
  * Java内存结构：
-<<<<<<< HEAD
  * 堆内存，栈内存，方法区（永久区／元数据区）,本地方法栈，程序计数器
-=======
- * 堆内存，栈内存，方法区（永久区／元数据区）
->>>>>>> origin/master
  *
  * 堆内存构成：
  * 新生代eden，幸存区survivor 2块，老年代
@@ -32,13 +26,9 @@ import java.util.Map;
  * 3。 -XX 不稳定参数，有些版本的JVM可能没有该参数，下一个版本可能取消；
  *
  * JVM重的垃圾收集器：
-<<<<<<< HEAD
  * 1。 Serial Collector 单线程收集器, 它在进行垃圾回收时会暂停所有用户进程，俗称stop the world。
  *                      同时它也是最简单高效的一款收集器为虚拟机运行在client模式下默认的垃圾回收器。
  *     ParNew Collector 它是Serial收集器的并行的版本，其他并无创新。它是目前新生代首选的收集器
-=======
- * 1。 Serial Collector 单线程收集器
->>>>>>> origin/master
  * 2。 Parallel Collector 多线程收集器，并发量大，停顿时间长
  * 3。 CMS Collector 并发收集器，停顿时间短
  * 4。 G1收集器 不仅时间停顿短，同时并发量大
@@ -48,7 +38,6 @@ import java.util.Map;
  * 2。 线程本地分配： 占用eden，默认1%，小对象，多线程时候不用竞争eden就可以申请空间，提升效率；
  * 3。 老年代：大对象；
  * 4。 新生代 eden区
-<<<<<<< HEAD
  *
  * GC日志规范：
  * [GC (Allocation Failure) [PSYoungGen: 1024K->496K(1536K)] 1024K->528K(5632K), 0.0008249 secs]
