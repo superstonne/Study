@@ -7,7 +7,7 @@ public class BufferUtil {
 
     public static void printBufferProperty(Buffer buffer) {
         System.out.println("capacity:" + buffer.capacity() + " limit:" + buffer.limit() + " position:"
-                + buffer.position() + " has array:" + buffer.hasArray());
+                + buffer.position() + " has array:" + buffer.hasArray() + " buffer=" + buffer);
     }
 
     public static void printBufferContent(ByteBuffer buffer) {
