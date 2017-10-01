@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--<context:component-scan base-package="org.jinlong.study.spring.autowiring" />-->
+    <bean id="sayHelloRobot" class="org.jinlong.study.spring.autowiring.SayHelloRobot"></bean>
+    <bean id="sayHiRobot" class="org.jinlong.study.spring.autowiring.SayHiRobot"></bean>
+    <bean id="superRobot" class="org.jinlong.study.spring.autowiring.SuperRobot">
+        <constructor-arg ref="sayHelloRobot"/>
+        <constructor-arg ref="sayHiRobot"/>
+    </bean>
+    <bean id="superRobot2" class="org.jinlong.study.spring.autowiring.SuperRobot"
+          c:_0-ref="sayHelloRobot"
+          c:_1-ref="sayHiRobot"/>
+</beans>
