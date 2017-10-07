@@ -1,4 +1,4 @@
-package org.jinlong.study.spring;
+package org.jinlong.study.spring.dependencyinject;
 
 public class Dog extends Animal {
     public void sayName() {

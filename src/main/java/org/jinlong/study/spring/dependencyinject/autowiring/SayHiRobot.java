@@ -1,7 +1,4 @@
-package org.jinlong.study.spring.autowiring;
-
-import javafx.beans.NamedArg;
-import org.jinlong.study.spring.autowiring.Robot;
+package org.jinlong.study.spring.dependencyinject.autowiring;
 
 import javax.inject.Named;
 

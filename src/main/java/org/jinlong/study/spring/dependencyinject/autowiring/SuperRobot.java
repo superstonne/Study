@@ -1,4 +1,4 @@
-package org.jinlong.study.spring.autowiring;
+package org.jinlong.study.spring.dependencyinject.autowiring;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

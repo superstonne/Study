@@ -1,20 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-http://www.springframework.org/schema/beans/spring-beans.xsd
-http://www.springframework.org/schema/context
-http://www.springframework.org/schema/context/spring-context.xsd">
-    <!--<context:component-scan base-package="org.jinlong.study.spring.autowiring" />-->
-    <bean id="sayHelloRobot" class="org.jinlong.study.spring.autowiring.SayHelloRobot"></bean>
-    <bean id="sayHiRobot" class="org.jinlong.study.spring.autowiring.SayHiRobot"></bean>
-    <bean id="superRobot" class="org.jinlong.study.spring.autowiring.SuperRobot">
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd">
+    <!--<context:component-scan base-package="org.jinlong.study.spring.dependencyinject.autowiring" />-->
+    <bean class="org.jinlong.study.spring.dependencyinject.config.RobotConfig"/>
+    <import resource="service-jms.xml"/>
+    <bean id="sayHelloRobot" class="org.jinlong.study.spring.dependencyinject.autowiring.SayHelloRobot"></bean>
+    <bean id="sayHiRobot" class="org.jinlong.study.spring.dependencyinject.autowiring.SayHiRobot"></bean>
+    <bean id="superRobot" class="org.jinlong.study.spring.dependencyinject.autowiring.SuperRobot">
         <constructor-arg ref="sayHelloRobot"/>
         <constructor-arg ref="sayHiRobot"/>
     </bean>
-    <bean id="superRobot2" class="org.jinlong.study.spring.autowiring.SuperRobot"
+    <bean id="superRobot2" class="org.jinlong.study.spring.dependencyinject.autowiring.SuperRobot"
           c:_0-ref="sayHelloRobot"
           c:_1-ref="sayHiRobot"/>
+    <bean id="namedRobot" class="org.jinlong.study.spring.dependencyinject.autowiring.NamedRobot" c:name="Nick" c:gender="Boy"/>
+    <bean id="namedRobot1" class="org.jinlong.study.spring.dependencyinject.autowiring.NamedRobot">
+        <constructor-arg value="name1"/>
+        <constructor-arg><null/></constructor-arg>
+    </bean>
+    <bean id="namedRobot2" class="org.jinlong.study.spring.dependencyinject.autowiring.NamedRobot" c:_0="0" c:_1="1"/>
+    <bean id="manyNamesRobot" class="org.jinlong.study.spring.dependencyinject.autowiring.ManyNamesRobot">
+        <constructor-arg>
+            <list>
+                <value>name1</value>
+                <value>name2</value>
+                <value>name3</value>
+            </list>
+        </constructor-arg>
+    </bean>
+    <bean id="manyNamesRobot1" class="org.jinlong.study.spring.dependencyinject.autowiring.ManyNamesRobot">
+        <property name="names">
+            <list>
+                <value>name1</value>
+                <value>name2</value>
+                <value>name3</value>
+            </list>
+        </property>
+    </bean>
+    <util:list id="name-list">
+        <value>name1 from util list</value>
+        <value>name2 from util list</value>
+        <value>name3 from util list</value>
+    </util:list>
+    <bean id="manyNamesRobot2" class="org.jinlong.study.spring.dependencyinject.autowiring.ManyNamesRobot" p:names-ref="name-list"/>
+    <bean id="audience" class="org.jinlong.study.spring.aop.Audience"/>
+    <aop:config>
+        <aop:pointcut id="performance" expression="execution(* org.jinlong.study.spring.aop.Performance.perform(..))"/>
+        <aop:aspect ref="audience">
+            <aop:before
+                    pointcut-ref="performance"
+                    method="silenceCellPhones"/>
+            <aop:before
+                    pointcut-ref="performance"
+                    method="takeSeats"/>
+            <aop:after-returning
+                    pointcut-ref="performance"
+                    method="applause"/>
+            <aop:after-throwing
+                    pointcut-ref="performance"
+                    method="demandRefund"/>
+            <aop:around method="watchPerformance"
+                        pointcut-ref="performance"/>
+        </aop:aspect>
+    </aop:config>
+    <bean id="trackNumber" class="org.jinlong.study.spring.aop.TrackTools"/>
+    <aop:config>
+        <aop:pointcut id="trackPlayed" expression="execution(* org.jinlong.study.spring.aop.TrackNumberPerformance.perform(int)) and args(trackNumber)"/>
+        <aop:aspect ref="trackNumber">
+            <aop:before method="trackCount" pointcut-ref="trackPlayed"/>
+        </aop:aspect>
+    </aop:config>
+    <bean id="encoreable" class="org.jinlong.study.spring.aop.DefaultEncoreable" />
+    <aop:config>
+        <aop:aspect>
+            <aop:declare-parents types-matching="org.jinlong.study.spring.aop.Performance" implement-interface="org.jinlong.study.spring.aop.Encoreable"
+                                 delegate-ref="encoreable"/>
+        </aop:aspect>
+    </aop:config>
+
+    <bean id="criticismEngine"
+          class="org.jinlong.study.spring.aop.CriticismEngineImpl">
+        <property name="criticismPool">
+            <list>
+                <value>Worst performance ever!</value>
+                <value>I laughed, I cried, then I realized I was at the  wrong show.</value>
+                <value>A must see show!</value>
+            </list>
+        </property>
+    </bean>
+    <bean class="org.jinlong.study.spring.aop.CriticalAspect"
+          factory-method="aspectOf">
+        <property name="criticismEngine" ref="criticismEngine" />
+    </bean>
 </beans>

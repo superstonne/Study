@@ -1,17 +1,14 @@
-package org.jinlong.study.spring.config;
+package org.jinlong.study.spring.dependencyinject.config;
 
-import org.jinlong.study.spring.autowiring.Robot;
-import org.jinlong.study.spring.autowiring.SayHelloRobot;
-import org.jinlong.study.spring.autowiring.SayHiRobot;
-import org.jinlong.study.spring.autowiring.SuperRobot;
+import org.jinlong.study.spring.dependencyinject.autowiring.Robot;
+import org.jinlong.study.spring.dependencyinject.autowiring.SayHelloRobot;
+import org.jinlong.study.spring.dependencyinject.autowiring.SayHiRobot;
+import org.jinlong.study.spring.dependencyinject.autowiring.SuperRobot;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Random;
-
 @Configuration
-//@ComponentScan(basePackages = {"org.jinlong.study.spring.autowiring"})
+//@ComponentScan(basePackages = {"org.jinlong.study.spring.dependencyinject.autowiring"})
 //@ComponentScan(basePackageClasses = {Robot.class})
 public class RobotConfig {
 

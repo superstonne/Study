@@ -1,4 +1,4 @@
-package org.jinlong.study.spring;
+package org.jinlong.study.spring.dependencyinject;
 
 public class Nest {
     private Animal animal;

@@ -1,7 +1,7 @@
-package org.jinlong.study.spring.test;
+package org.jinlong.study.spring.dependencyinject.test;
 
-import org.jinlong.study.spring.autowiring.Robot;
-import org.jinlong.study.spring.config.RobotConfig;
+import org.jinlong.study.spring.dependencyinject.autowiring.Robot;
+import org.jinlong.study.spring.dependencyinject.config.RobotConfig;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
