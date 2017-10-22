@@ -1,4 +1,4 @@
-package org.jinlong.study.spring.mvc.spittr.config;
+package spring.spittr.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 

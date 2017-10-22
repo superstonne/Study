@@ -1,4 +1,4 @@
-package org.jinlong.study.spring.mvc.spittr.web;
+package spring.spittr.web;
 
 import org.junit.Test;
 import org.springframework.test.web.servlet.MockMvc;

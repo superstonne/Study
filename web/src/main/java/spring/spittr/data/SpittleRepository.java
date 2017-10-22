@@ -1,8 +1,13 @@
-package org.jinlong.study.spring.mvc.spittr.data;
+package spring.spittr.data;
 
-import org.jinlong.study.spring.mvc.spittr.Spittle;
+import spring.spittr.Spittle;
+
 import java.util.List;
 
 public interface SpittleRepository {
     List<Spittle> findSpittles(long max, int count);
+
+    Spittle findOne(long spittleId);
+
+
 }

@@ -7,6 +7,10 @@
     <groupId>algorithm</groupId>
     <artifactId>study</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>web</module>
+    </modules>
+    <packaging>pom</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -125,6 +129,28 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.6</version>
         </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>2.0.0.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>6.0.3.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>3.0.1-b08</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>2.10.0</version>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -142,10 +168,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
-
-
-
     </dependencies>
 
 
