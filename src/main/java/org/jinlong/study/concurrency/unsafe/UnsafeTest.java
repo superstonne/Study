@@ -55,13 +55,57 @@ public class UnsafeTest {
         Assert.assertEquals(Object.class, instance.getClass().getSuperclass());
 
         // 利用Unsafe申请堆外内存，进而获得一个大于Integer.MAX_VALUE的数组
-        long maximum = Integer.MAX_VALUE + 1L;
+        long maximum = 10 + 1L;
         DirectIntArray directIntArray = new DirectIntArray(maximum);
         directIntArray.setValue(0L, 10);
         directIntArray.setValue(maximum, 20);
         Assert.assertEquals(10, directIntArray.getValue(0L));
         Assert.assertEquals(20, directIntArray.getValue(maximum));
         directIntArray.destroy();
+
+        // JVM 不对直接内存的赋值做边界检测
+        long address = unsafe.allocateMemory(2L * 4);
+        System.out.println("直接内存起始地址：" + address);
+        unsafe.setMemory(address, 8L, (byte) 0);
+        Assert.assertEquals(0, unsafe.getInt(address));
+        Assert.assertEquals(0, unsafe.getInt(address + 4));
+        unsafe.putInt(address + 1, 0xffffffff);
+        Assert.assertEquals(0xffffff00, unsafe.getInt(address));
+        Assert.assertEquals(0x000000ff, unsafe.getInt(address + 4));
+
+        // throwing a checked exception without declared
+//        testThrowException();
+
+        // 利用Unsafe的park和unpark方法来停止和继续一个线程
+        final boolean[] run = new boolean[1];
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                unsafe.park(true, 100000L);
+                run[0] = true;
+            }
+        };
+        thread.start();
+        unsafe.unpark(thread);
+        thread.join(100L);
+        Assert.assertTrue(run[0]);
+
+    }
+
+
+    public static void testThrowException() {
+        Unsafe unsafe = null;
+        try {
+            Field theUnsafe = Unsafe.class.getDeclaredField("theUnsafe");
+            theUnsafe.setAccessible(true);
+            unsafe = (Unsafe) theUnsafe.get(null);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        System.out.println(unsafe);
+        unsafe.throwException(new Exception());
 
     }
 }
