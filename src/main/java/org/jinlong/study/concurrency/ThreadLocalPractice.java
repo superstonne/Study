@@ -27,16 +27,16 @@ public class ThreadLocalPractice {
                 @Override
                 public void run() {
                     num++;
-                    System.out.println("Num= " + num);
+                    System.out.println(Thread.currentThread().getName() + " Num= " + num);
                     int localNumber = local.get();
                     localNumber++;
                     local.set(localNumber);
-                    System.out.println("Local Num= " + localNumber);
+                    System.out.println(Thread.currentThread().getName() + " Local Num= " + localNumber);
 
                     Increment increment = incrementThreadLocal.get();
                     increment.increase();
                     incrementThreadLocal.set(increment);
-                    System.out.println("Increment Local Num= " + increment.num);
+                    System.out.println(Thread.currentThread().getName() + " Increment Local Num= " + increment.num);
                 }
             });
         }
@@ -48,7 +48,7 @@ public class ThreadLocalPractice {
 
     static class Increment {
         static int num;
-        void increase() {
+        synchronized void increase() {
             num++;
         }
     }

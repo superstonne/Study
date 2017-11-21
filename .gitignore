@@ -31,3 +31,4 @@
 .idea/workspace.xml
 target/
 test.txt
+/web/src/main/java/spring/spittr/config/SpittrWebAppInitializer.java
