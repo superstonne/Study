@@ -8,7 +8,10 @@ public class SerialTest {
     public static final byte[] SIXTY_KB = new byte[64 * 1024];
 
     public static void main(String[] args) throws InterruptedException {
-        OOMWithFixedSize();
+        List<SerialTest> list = new ArrayList<SerialTest>();
+        while (true) {
+            list.add(new SerialTest());
+        }
     }
 
     public static void OOMWithFixedSize() throws InterruptedException {
