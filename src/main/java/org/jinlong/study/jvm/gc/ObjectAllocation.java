@@ -1,5 +1,7 @@
 package org.jinlong.study.jvm.gc;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * JVM args: -verbose:gc -Xms20m -Xmx20m -Xmn10m -XX:+PrintGCDetails -XX:SurvivorRatio=8
  * -XX:SurvivorRatio=8 调整Eden和Survivor区域的比例
@@ -16,12 +18,15 @@ package org.jinlong.study.jvm.gc;
  * 3。长期存活的对象将进入老年代
  * JVM为对象设置了一个年龄参数，每当对象经过一次Minor GC，那么对象的年龄+1。
  * 默认当一个对象15岁时候进入老年代，可以通过参数-XX:MaxTenuringThreshold=1来控制对象多大年龄可以进入老年代
+ *
+ * 4。同样的年龄的对象的内存加起来大于to survicor 的一半容量，则将大于该年龄的所有对象移动到老年代
+ * 此时对象的并不需要一定等到达到年龄阀值才能进入老年代
  */
 public class ObjectAllocation {
     private static final int _1MB = 1024 * 1024;
 
-    public static void main(String[] args) {
-        oldObjectWouldBeMovedToTenureGen();
+    public static void main(String[] args) throws Exception {
+        sameAgeObjectSizeMoveedToTenureGen();
     }
 
     public static void allocateObjectOnEdenFirst() {
@@ -44,8 +49,20 @@ public class ObjectAllocation {
     /**
      *使用-XX:MaxTenuringThreshold=年龄 来控制对象多大时候进入老年代
      */
-    public static void oldObjectWouldBeMovedToTenureGen() {
+    public static void oldObjectWouldBeMovedToTenureGen() throws Exception {
         byte[] allocation1 = new byte[_1MB /4];
+        byte[] allocation2 = new byte[_1MB * 4];
+        byte[] allocation3 = new byte[_1MB * 4];
+        allocation3 = null;
+        allocation3 = new byte[_1MB * 4];
+    }
+
+    /**
+     * 同样的年龄的对象的内存加起来大于to survicor 的一半容量，则将大于该年龄的所有对象移动到老年代
+     */
+    public static void sameAgeObjectSizeMoveedToTenureGen() {
+        byte[] allocation1 = new byte[_1MB / 4];
+        byte[] allocation4 = new byte[_1MB / 4];
         byte[] allocation2 = new byte[_1MB * 4];
         byte[] allocation3 = new byte[_1MB * 4];
         allocation3 = null;
