@@ -102,8 +102,8 @@
             </list>
         </property>
     </bean>
-    <bean class="org.jinlong.study.spring.aop.CriticalAspect"
-          factory-method="aspectOf">
-        <property name="criticismEngine" ref="criticismEngine" />
-    </bean>
+    <!--<bean class="org.jinlong.study.spring.aop.CriticalAspect"-->
+          <!--factory-method="aspectOf">-->
+        <!--<property name="criticismEngine" ref="criticismEngine" />-->
+    <!--</bean>-->
 </beans>

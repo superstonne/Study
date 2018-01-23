@@ -14,18 +14,13 @@ import java.util.Map;
 public class HashMapStudy {
 
     public static void main(String[] args) {
-        HashMap hashMap = new HashMap();
-
-        hashMap.put("dog", "狗");
-        hashMap.put("pig", "猪");
-        hashMap.put("banana", "香蕉");
-        hashMap.put("apple", "苹果");
-        hashMap.put("watermelon", "西瓜");
-
-        Iterator iterator = hashMap.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry entry = (Map.Entry) iterator.next();
-            System.out.println("Key: " + entry.getKey() + " value: " + entry.getValue());
+        HashMap hashMap = new HashMap(5,2);
+        for (int i = 0; i < 20; i++) {
+            hashMap.put(i, i);
         }
+
+
+        System.out.println(hashMap);
     }
+
 }

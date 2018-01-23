@@ -26,6 +26,7 @@ public class ConcurrentMapPractice {
         ConcurrentMap concurrentMap = new ConcurrentHashMap();
         concurrentMap.put(1, "value1");
         concurrentMap.put(2, "value2");
+        concurrentMap.put(null, "");
 
     }
 }
