@@ -120,6 +120,7 @@ public class ThreadStudy {
 //        t.start();
         TimeUnit.SECONDS.sleep(5);
 
+
         System.out.println(sharedObject.getCount());
     }
 

@@ -1,0 +1,15 @@
+package org.jinlong.study.patterns.creational.factory;
+
+public class EagerSingleton {
+    private static final EagerSingleton instance = new EagerSingleton();
+
+    private EagerSingleton() {
+    }
+
+    public static EagerSingleton getInstance() {
+        return instance;
+    }
+}
+
+
+

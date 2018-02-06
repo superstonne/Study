@@ -4,22 +4,15 @@ public class StringBufferPractice {
 
     public static void main(String[] args) {
         Dog dog = new Dog();
-        dog.sayHello();
-
-        Animal animal = new Animal();
-        animal.sayHello();
+        dog.sayName();
     }
-
 }
-
-class Animal {
+ class Animal {
     void sayName() {
         System.out.println("I'm animal.");
+        sayHello();
     }
-
     void sayHello() {
-        this.sayName();
-        System.out.println(this);
         System.out.println("Hello from animal.");
     }
 }
@@ -27,12 +20,12 @@ class Animal {
 class Dog extends Animal {
     @Override
     void sayName() {
-        System.out.println("I'm dog.");
+        System.out.println("I'm a dog.");
+        super.sayName();
     }
 
     @Override
     void sayHello() {
-        System.out.println(super.toString());
-        super.sayHello();
+        System.out.println("Hello from dog.");
     }
 }
