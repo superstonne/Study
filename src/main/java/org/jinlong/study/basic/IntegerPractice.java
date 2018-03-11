@@ -2,6 +2,6 @@ package org.jinlong.study.basic;
 
 public class IntegerPractice {
     public static void main(String[] args) {
-        Integer a = 1;
+        System.out.println(Integer.toHexString((1 << 16) - 1));
     }
 }

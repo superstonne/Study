@@ -1,4 +1,4 @@
-package org.jinlong.study.patterns.creational.factory;
+package org.jinlong.study.patterns.creational.singleton;
 
 public class EagerSingleton {
     private static final EagerSingleton instance = new EagerSingleton();
