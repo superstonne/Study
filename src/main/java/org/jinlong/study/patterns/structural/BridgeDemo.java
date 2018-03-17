@@ -1,4 +1,4 @@
-package org.jinlong.study.patterns.creational.factory;
+package org.jinlong.study.patterns.structural;
 
 public class BridgeDemo {
 
