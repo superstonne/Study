@@ -58,5 +58,11 @@ public class ListStudy {
 
         System.out.println(a.size());
 
+        List list = new ArrayList();
+        for (int i = 0; i < 100; i++) {
+            list.add(i);
+            System.out.println(list.size());
+        }
+
     }
 }
