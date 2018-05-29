@@ -1,0 +1,64 @@
+task upper << {
+    String someString = 'my_name'
+    println "Original: " + someString
+    println "Upper Case: " + someString.toUpperCase()
+}
+
+task count << {
+    4.times {
+        print "$it "
+    }
+}
+
+
+
+task introduction(dependsOn: 'hello') << {
+    println "I'm Nick."
+}
+
+task hello << {
+    println "Hello Gradle!"
+}
+
+4.times {
+    counter1 ->
+        task "task$counter1" << {
+            println "I'm task number $counter1"
+        }
+}
+task0.dependsOn task2, task3
+
+hello.doFirst {
+    println "I'm doFirst."
+}
+hello.doFirst {
+    println "I'm doFirst two"
+}
+
+hello.doLast {
+    println "I'm doLast"
+}
+
+hello << {
+    println "I'm doLast tow."
+}
+
+hello << {
+    println "$hello.name task is over!"
+    ext.age = 99
+}
+hello.doLast {
+    println hello.age
+}
+
+task loadFile << {
+    def files = file('../Study').listFiles().sort()
+    files.each {
+        File file ->
+            if (file.isFile()) {
+//                ant.loadFile(srcFile: file, property:file.name)
+                println " *** $file.name ***"
+                println "${ant.properties[file.name]}"
+            }
+    }
+}
